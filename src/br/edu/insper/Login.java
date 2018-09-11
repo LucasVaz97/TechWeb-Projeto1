@@ -19,31 +19,35 @@ import javax.servlet.http.HttpServletResponse;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void service (HttpServletRequest request,
-			 HttpServletResponse response) throws IOException {
+			 HttpServletResponse response) throws IOException, ServletException {
 		
 			PrintWriter out = response.getWriter();
 			Usuarios usuario = new Usuarios();
 			String name = request.getParameter("nome");
 			usuario.setUser(name);
 			usuario.setPassword(request.getParameter("senha"));
-			out.println("<html>");
-			out.println("<body>");
-			out.println(name);
-			out.println("</body>");
-			out.println("</html>");
 			
 			
 			DAO dao = new DAO();
 			try {
 				System.out.println("Tentou fazer login");
-				if(dao.login(usuario)) {
-					RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
-					try {
-						RequetsDispatcherObj.forward(request, response);
-					} catch (ServletException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if(dao.checkUser(usuario)) {
+					if(dao.login(usuario)) {
+						RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
+						try {
+							RequetsDispatcherObj.forward(request, response);
+						} catch (ServletException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
+					else {
+						RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/logincerto.jsp");
+						RequetsDispatcherObj.forward(request, response);
+					}
+				}
+				else {
+					System.out.println("user nao existente");
 				}
 				
 			} catch (SQLException e) {

@@ -6,7 +6,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-  <title>Starter Template - Materialize</title>
+  <title>Notas - Take-A-Note!</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<%@ page import="java.util.*,br.edu.insper.*" %>
   <nav>
     <div class="nav-wrapper light-blue accent-3 z-depth-2">
       <a href="#" class="brand-logo hide-on-med-and-down" style="margin-left:3%">Take-a-Note!</a>
@@ -80,11 +81,18 @@
       <div class="col s12 l10">
         <div class="row">
           <div class="card col s12 l8 offset-l2 z-depth-2 hide-on-small-only">
-            <div class="input-field col s11">
-              <i class="material-icons prefix grey-text text-darken-1">create</i>
-              <input id="newNote" placeholder="Take a note" type="text" class="validate">
-
-            </div>
+             <form class="col s12">
+       <div class="row">
+           <div class="input-field col s11">
+               <input id="name" type="text" class="validate">
+               <label for="name">Name</label>
+           </div>
+           <div class="input-field col s1">
+               <button class="btn-floating blue waves-effect waves-light" type="submit" name="action"><i class="material-icons">add</i>
+               </button>
+           </div>
+       </div>
+   </form>
           </div>
           <div class="card col s12 l8 offset-l2 z-depth-2 hide-on-med-and-up" style="margin-top:-3%">
               <div class="input-field col s11">
@@ -93,84 +101,21 @@
               </div>
             </div>
         </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks. 
+        <%  DAO dao = new DAO();
+        List<Notas> notas = dao.getListaNotas();
+        for (Notas nota : notas ) { %>
+        <div class="col s6 l3">
+          <div class="card-panel yellow lighten-3 z-depth-2" style="min-height:200px;">
+          <h5><%=nota.getTitulo()%></h5>
+            <span class="text"> <%=nota.getContent()%>
             </span>
           </div>
         </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-        <div class="col s12 l3">
-          <div class="card-panel yellow lighten-3 z-depth-2">
-            <span class="text">I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-              little markup to use effectively. I am similar to what is called a panel in other frameworks.
-            </span>
-          </div>
-        </div>
-
+        
+       <% } 
+        %>
+        
+        
       </div>
       
   
