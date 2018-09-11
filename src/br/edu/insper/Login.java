@@ -2,6 +2,9 @@ package br.edu.insper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +22,35 @@ public class Login extends HttpServlet {
 			 HttpServletResponse response) throws IOException {
 		
 			PrintWriter out = response.getWriter();
+			Usuarios usuario = new Usuarios();
+			String name = request.getParameter("nome");
+			usuario.setUser(name);
+			usuario.setPassword(request.getParameter("senha"));
 			out.println("<html>");
 			out.println("<body>");
-			out.println("Servlet funcionando");
+			out.println(name);
 			out.println("</body>");
 			out.println("</html>");
-		
-		
+			
+			
+			DAO dao = new DAO();
+			try {
+				System.out.println("Tentou fazer login");
+				if(dao.login(usuario)) {
+					RequestDispatcher RequetsDispatcherObj =request.getRequestDispatcher("/index.jsp");
+					try {
+						RequetsDispatcherObj.forward(request, response);
+					} catch (ServletException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("NAO Tentou fazer login");
+			}
 	}
        
     /**
